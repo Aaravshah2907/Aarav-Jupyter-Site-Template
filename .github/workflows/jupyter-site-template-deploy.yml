@@ -12,17 +12,34 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install pinned versions
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install system dependencies
+        run: sudo apt-get install -y pandoc
+
+      - name: Install core packages (pinned versions)
         run: |
-          pip3 install \
-            notebook==6.5.2 \
-            nbconvert==7.2.9 \
-            MarkupSafe==2.1.1 \
-            jinja2==3.0.3 \
-            ipykernel==6.21.2
+          pip install --upgrade pip
+          pip install notebook==6.5.2 nbconvert==7.2.9 \MarkupSafe==2.1.1 jinja2==3.0.3 ipykernel==6.21.2 pipreqs
+
+      - name: Detect notebook dependencies
+        run: |
+          # Convert notebooks to scripts to detect imports
+          find . -name "*.ipynb" -exec jupyter nbconvert {} --to script \;
+          # Generate requirements.txt from all scripts
+          pipreqs . --mode no-pin --force
+          # Clean up temporary scripts
+          find . -name "*.py" -not -path "./.venv/*" -delete
+
+      - name: Install notebook dependencies
+        run: pip install -r requirements.txt
 
       - name: Convert notebooks with outputs
         run: |
+          export PYTHONPATH="${PYTHONPATH}:${PWD}"
           find . -name "*.ipynb" -exec jupyter nbconvert {} \
             --to markdown \
             --execute \
