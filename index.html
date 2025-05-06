@@ -79,8 +79,19 @@
         // Hook to dynamically update name and repo
         hooks: {
           init: function () {
-            const currentPath = location.pathname.split("/").pop();
-            const config = window.$docsify.nameLink[`/${currentPath}`];
+            <!--
+            <!--
+            This code snippet extracts the absolute path inside the GitHub repository
+            by removing the base path of the repository from the current URL.
+
+            Example:
+            If the current URL is "https://aaravshah2907.github.io/Aarav-Jupyter-Site-Template/folder/page",
+            the `currentPath` variable will hold the value "/folder/page".
+            -->
+
+            const repoBasePath = "https://aaravshah2907.github.io/Aarav-Jupyter-Site-Template";
+            const currentPath = location.pathname.replace(repoBasePath, "");
+            const config = window.$docsify.nameLink[currentPath];
             if (config) {
               window.$docsify.name = config.name;
               window.$docsify.repo = config.repo;
