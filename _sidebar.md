@@ -2,4 +2,5 @@
 - [Sample Notebook](NOTEBOOK.md)
 - [Item of a-great-subfolder](a-great-subfolder/README.md "HTML title can be setted here")
   - click arrows to collapse items!
+  - [Notebbok2](a-great-subfolder/NOTEBOOK.md)
   - [Sidebar item can by any link, like this](https://github.com)
