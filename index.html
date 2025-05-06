@@ -28,28 +28,38 @@
     <div id="app"></div>
     <script>
       window.$docsify = {
-        // Default settings
+        // !!! Your site name on the top-left sidebar corner
+        name: "Aarav-Jupyter-Site-Template",
+        // !!! Your site url of the top-right github icon
+        repo: "https://github.com/Aaravshah2907/Aarav-Jupyter-Site-Template/blob/gh-pages/README.md",
+        // OK, that's all, enjoy!
+        // Change followings if you what you are doing.
+
         loadNavbar: false,
         loadSidebar: true,
         loadFooter: true,
-        mergeNavbar: true,
-        subMaxLevel: 5,
-        sidebarDisplayLevel: 1,
+        mergeNavbar: true, // navbar will be merged with the sidebar on smaller screens
+        subMaxLevel: 5, // sidebar item to show current page headings
+        sidebarDisplayLevel: 1, // nested sidebar collapse plugin
+        // notFoundPage: true, // _404.md will be display if url doesn't exist
 
         darklightTheme: {
           defaultTheme: "light | dark",
+          // font of site and code blocks
+          // siteFont: '"Times New Roman","Noto Serif CJK SC","Songti SC","Microsoft YaHei UI",serif,-apple-system,BlinkMacSystemFont',
+          // codeFontFamily: 'Source Code Pro,Menlo,Consolas,Monaco,monospace,"Times New Roman","Noto Serif CJK SC","Songti SC","Microsoft YaHei UI",serif,-apple-system,BlinkMacSystemFont',
         },
 
         search: {
-          maxAge: 86400000,
+          maxAge: 86400000, // ttl of index file in localstorage, one day on default
           placeholder: "Type to search",
           noData: "No Results!",
           depth: 2,
         },
 
         timeUpdater: {
-          text: ">Last Updated At: {docsify-updated}",
-          formatUpdated: "{YYYY}/{MM}/{DD} {HH}:{mm}:{ss}",
+          text: ">Last Updated At: {docsify-updated}", // Prompt of updated date message, will show on every page
+          formatUpdated: "{YYYY}/{MM}/{DD} {HH}:{mm}:{ss}", // Format of updated date message
           whereToPlace: "top",
         },
 
@@ -58,44 +68,6 @@
           nextText: "Next Page",
           crossChapter: true,
           crossChapterText: true,
-        },
-
-        // Dynamic name and repo based on the current page
-        nameLink: {
-          "/README.md": {
-            name: "Aarav-Jupyter-Site-Template",
-            repo: "https://github.com/Aaravshah2907/Aarav-Jupyter-Site-Template/blob/gh-pages/README.md",
-          },
-          "/NOTEBOOK.md": {
-            name: "Google",
-            repo: "https://www.google.com",
-          },
-          "/a-great-subfolder/README.md": {
-            name: "DEMO",
-            repo: "https://www.youtube.com",
-          },
-        },
-
-        // Hook to dynamically update name and repo
-        hooks: {
-          init: function () {
-            <!--
-            This code snippet extracts the absolute path inside the GitHub repository
-            by removing the base path of the repository from the current URL.
-
-            Example:
-            If the current URL is "https://aaravshah2907.github.io/Aarav-Jupyter-Site-Template/folder/page",
-            the `currentPath` variable will hold the value "/folder/page".
-            -->
-
-            const repoBasePath = "https://github.com/Aaravshah2907/Aarav-Jupyter-Site-Template/tree/gh-pages";
-            const currentPath = location.pathname.replace(repoBasePath, "");
-            const config = window.$docsify.nameLink[currentPath];
-            if (config) {
-              window.$docsify.name = config.name;
-              window.$docsify.repo = config.repo;
-            }
-          },
         },
       };
     </script>
