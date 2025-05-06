@@ -12,18 +12,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install dependencies
+      - name: Install pinned versions
         run: |
-          pip3 install notebook==6.4.12
-          pip3 install --upgrade nbconvert
-          pip3 install jinja2==3.0.3  # Optional: Only if you want to pin jinja2
-          pip3 install nbstripout
+          pip3 install \
+            notebook==6.5.2 \
+            nbconvert==7.2.9 \
+            MarkupSafe==2.1.1 \
+            jinja2==3.0.3 \
+            ipykernel==6.21.2
 
-      - name: Clean Colab notebooks
-        run: find . -name "*.ipynb" -exec nbstripout {} \;
-
-      - name: Convert notebooks
-        run: find . -name "*.ipynb" -exec jupyter nbconvert {} --to markdown \;
+      - name: Convert notebooks with outputs
+        run: |
+          find . -name "*.ipynb" -exec jupyter nbconvert {} \
+            --to markdown \
+            --execute \
+            --allow-errors \
+            --TemplateExporter.exclude_input_prompt=True \;
 
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
