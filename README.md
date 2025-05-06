@@ -4,9 +4,9 @@ Set up you jupyter-markdown hybrid site in one minute, powered by [Docsify](http
 
 Your :star: would be high praise for my efforts, thank you!
 
-Demo is here: [Maxlinn's Jupyter Site Template Demo](https://maxlinn.github.io/linn-jupyter-site-template).
+My Demo is here: [Aarav's Jupter Site Template](https://aaravshah2907.github.io/Aarav-Jupyter-Site-Template/#/)
 
-> 对于中文用户，您可以使用`zh-CN`[分支](https://github.com/Maxlinn/linn-jupyter-site-template/tree/zh-CN)。
+Demo is here: [Maxlinn's Jupyter Site Template Demo](https://maxlinn.github.io/linn-jupyter-site-template).
 
 ## Differences from [Maxlinn/linn-docsify-template](https://github.com/Maxlinn/linn-docsify-template)
 
