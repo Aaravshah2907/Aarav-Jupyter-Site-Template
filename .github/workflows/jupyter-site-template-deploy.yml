@@ -15,8 +15,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip3 install notebook==6.4.12
-          pip3 install nbconvert==5.6.1
-          pip3 install MarkupSafe==2.0.0 --force-reinstall
+          pip3 install --upgrade nbconvert
+          pip3 install jinja2==3.0.3  # Optional: Only if you want to pin jinja2
           pip3 install nbstripout
 
       - name: Clean Colab notebooks
