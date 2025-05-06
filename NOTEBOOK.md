@@ -4,7 +4,8 @@
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
-%matplotlib inline
+
+print("This is a simple script to plot a sine wave.")
 ```
 
 ## Voltage Curve
