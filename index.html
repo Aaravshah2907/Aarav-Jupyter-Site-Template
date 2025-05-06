@@ -80,7 +80,6 @@
         hooks: {
           init: function () {
             <!--
-            <!--
             This code snippet extracts the absolute path inside the GitHub repository
             by removing the base path of the repository from the current URL.
 
@@ -89,7 +88,7 @@
             the `currentPath` variable will hold the value "/folder/page".
             -->
 
-            const repoBasePath = "https://aaravshah2907.github.io/Aarav-Jupyter-Site-Template";
+            const repoBasePath = "https://github.com/Aaravshah2907/Aarav-Jupyter-Site-Template/tree/gh-pages";
             const currentPath = location.pathname.replace(repoBasePath, "");
             const config = window.$docsify.nameLink[currentPath];
             if (config) {
