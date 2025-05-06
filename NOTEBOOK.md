@@ -1,6 +1,5 @@
 # This is SHOWCASE.ipynb
 
-
 ```python
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,10 +7,23 @@ import numpy as np
 print("This is a simple script to plot a sine wave.")
 ```
 
+
+    ---------------------------------------------------------------------------
+
+    ModuleNotFoundError                       Traceback (most recent call last)
+
+    Cell In[1], line 1
+    ----> 1 import matplotlib.pyplot as plt
+          2 import numpy as np
+          4 print("This is a simple script to plot a sine wave.")
+
+
+    ModuleNotFoundError: No module named 'matplotlib'
+
+
 ## Voltage Curve
 
 some experiments.
-
 
 ```python
 t = np.arange(0.0, 2.0, 0.01)
@@ -25,6 +37,20 @@ plt.grid(True)
 plt.show()
 
 ```
+
+
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    Cell In[2], line 1
+    ----> 1 t = np.arange(0.0, 2.0, 0.01)
+          2 s = 1 + np.sin(2*np.pi*t)
+          3 plt.plot(t, s)
+
+
+    NameError: name 'np' is not defined
+
 
 <div style="text-align: center; margin-left: 45%;">
     <a href="https://github.com" target="_blank" style="text-decoration: none;">
