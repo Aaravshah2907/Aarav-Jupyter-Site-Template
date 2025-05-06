@@ -1,2 +1,3 @@
 ---
-A great footer, will be added to every page.
+
+This is an example of footer. Enjoy Guys.

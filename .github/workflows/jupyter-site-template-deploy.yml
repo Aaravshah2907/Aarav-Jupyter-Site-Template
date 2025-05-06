@@ -1,4 +1,4 @@
-name: linn-jupyter-site-template-deploy
+name: jupyter-site-template-deploy
 on:
   push:
     branches:
