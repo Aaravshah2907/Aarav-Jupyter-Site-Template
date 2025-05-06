@@ -1,9 +1,0 @@
-/* Apply smooth transitions for background and text color changes */
-body {
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-/* Add transition effects for the theme toggle button */
-button.toggle-theme {
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
