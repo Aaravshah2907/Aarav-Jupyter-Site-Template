@@ -1,5 +1,6 @@
-- a-great-navbar-item
-  - [Google](https://google.com)
+- Important Links
+  - <a href="https://www.google.com"><img src="https://www.gstatic.com/marketing-cms/assets/images/d5/dc/cfe9ce8b4425b410b49b7f2dd3f3/g.webp=s96-fcrop64=1,00000000ffffffff-rw" width="20" height="20" alt="Google Logo"></a>
   - <a href="https://github.com"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" height="20" alt="GitHub Logo"></a>
-  - [Youtube](https://youtube.com)
-  - [Demo Site](https://example.com)
+  - <a href="https://www.youtube.com"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" width="20" height="20" alt="YouTube Logo"></a>
+  - <a href="https://www.linkedin.com"><img src="https://pngimg.com/uploads/linkedIn/linkedIn_PNG8.png" width="20" height="20" alt="LinkedIn Logo"></a>
+  - <a href="https://mail.google.com"><img src="https://mailmeteor.com/logos/assets/PNG/Gmail_Logo_256px.png" width="20" height="20" alt="Gmail Logo"></a>
