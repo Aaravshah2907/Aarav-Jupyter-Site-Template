@@ -1,5 +1,5 @@
 - a-great-navbar-item
   - [Google](https://google.com)
-  - [![Github](contents/github-logo.svg)](https://github.com)
+  - <a href="https://github.com"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" height="20" alt="GitHub Logo"></a>
   - [Youtube](https://youtube.com)
   - [Demo Site](https://example.com)
