@@ -1,5 +1,5 @@
 - a-great-navbar-item
   - [Google](https://google.com)
-  - [Github](https://github.com)
+  - [![Github](contents/github-logo.svg)](https://github.com)
   - [Youtube](https://youtube.com)
   - [Demo Site](https://example.com)

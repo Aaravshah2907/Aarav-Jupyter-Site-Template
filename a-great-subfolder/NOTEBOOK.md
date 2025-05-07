@@ -33,13 +33,24 @@ plt.show()
     
 
 
-<div style="text-align: center; margin-left: 45%;">
-    <a href="https://google.com" target="_blank" style="text-decoration: none;">
-        <button style="background-color: #0366d6; color: white; border: none; padding: 10px 20px; font-size: 16px; display: flex; align-items: center; cursor: pointer;">
-            <img src="contents/github-logo.svg" alt="GitHub Logo" style="width: 20px; height: 20px; margin-right: 10px;">
-            GITHUB CODE
-        </button>
-    </a>
+<style>
+  .github-btn {
+    border: none; border-radius: 6px; padding: 16px 32px;
+    font-size: 18px; font-weight: 500; cursor: pointer;
+    margin: 8px 0; transition: transform 0.1s; letter-spacing: 1px;
+  }
+  .github-btn:active { transform: scale(0.85) }
+</style>
+<div style="display:flex; justify-content:center; align-items:center ;text-align: center">
+  <a href="https://github.com" target="_blank" style="text-decoration: none">
+    <button
+      class="github-btn" style="background-color: #e9f2a2; color: #16232a;
+        border: none; padding: 10px 20px; font-size: 16px; display: flex;
+        align-items: center; cursor: pointer;">
+      <img src="contents/github-logo.svg" alt="GitHub Logo" style="width: 20px; height: 20px; margin-right: 10px"/>
+      GITHUB CODE
+    </button>
+  </a>
 </div>
 
 <a href="contents/sample.mp4" target="_blank">Click here to view the video from anchor tag.</a>
