@@ -3,4 +3,4 @@
 - [Item of a-great-subfolder](a-great-subfolder/README.md "HTML title can be setted here")
   - click arrows to collapse items!
   - [Notebook 2](a-great-subfolder/NOTEBOOK.md)
-  - [![Github](contents/github-logo.svg)](https://github.com)
+  - <a href="https://github.com"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" height="20" alt="GitHub Logo"></a>
