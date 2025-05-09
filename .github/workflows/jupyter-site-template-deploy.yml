@@ -30,14 +30,34 @@ jobs:
         with:
           files: "**/*.ipynb"
 
-      - name: Convert changed notebooks
+      - name: Convert changed notebooks to scripts
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          for nb in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            jupyter nbconvert "$nb" --to script --output "${nb%.ipynb}.py"
+          done
+
+      - name: Generate requirements.txt for changed files
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          pipreqs . --force
+
+      - name: Install notebook dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          pip install -r requirements.txt
+
+      - name: Clean up temporary scripts
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          find . -name "*.py" -not -path "./.venv/*" -delete
+
+      - name: Convert changed notebooks to markdown
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           for nb in ${{ steps.changed-files.outputs.all_changed_files }}; do
             jupyter nbconvert "$nb" --to markdown --execute --allow-errors
           done
-
-      # No commit/push to main branch here!
 
       - name: Deploy to gh-pages
         if: steps.changed-files.outputs.any_changed == 'true'
