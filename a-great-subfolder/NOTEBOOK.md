@@ -8,18 +8,7 @@ import numpy as np
 print("This is a simple script to plot a sine wave.")
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    ModuleNotFoundError                       Traceback (most recent call last)
-
-    Cell In[1], line 1
-    ----> 1 import matplotlib.pyplot as plt
-          2 import numpy as np
-          4 print("This is a simple script to plot a sine wave.")
-
-
-    ModuleNotFoundError: No module named 'matplotlib'
+    This is a simple script to plot a sine wave.
 
 
 ## Voltage Curve
@@ -41,17 +30,9 @@ plt.show()
 ```
 
 
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    Cell In[2], line 1
-    ----> 1 t = np.arange(0.0, 2.0, 0.01)
-          2 s = 1 + np.sin(400*np.pi*t)
-          3 plt.plot(t, s)
-
-
-    NameError: name 'np' is not defined
+    
+![png](NOTEBOOK_files/NOTEBOOK_3_0.png)
+    
 
 
 <style>
