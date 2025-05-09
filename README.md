@@ -1,8 +1,6 @@
 # Homepage
 
-Set up you jupyter-markdown hybrid site in one minute, powered by [Docsify](https://docsify.js.org/).
-
-Your :star: would be high praise for my efforts, thank you!
+Set up your jupyter-markdown hybrid site in one minute, powered by [Docsify](https://docsify.js.org/).
 
 My Demo is here: [Aarav's Jupter Site Template](https://aaravshah2907.github.io/Aarav-Jupyter-Site-Template/#/)
 
