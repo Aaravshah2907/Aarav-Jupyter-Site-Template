@@ -55,8 +55,10 @@ plt.show()
   </a>
 </div>
 
+<!---
 <a href="contents/sample.mp4" target="_blank">Click here to view the video from anchor tag.</a>
-# Change 2 Testing - Python Notebook 1
+-->
+
 # Sample Video
 Here you can add video for your code if it is needed.
 <video width="1280" height="720" controls>
