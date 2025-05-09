@@ -1,0 +1,43 @@
+name: Full Rebuild and Deploy to gh-pages
+on:
+  workflow_run:
+    workflows: ["Process and Deploy to gh-pages"]
+    types:
+      - completed
+
+jobs:
+  full-rebuild:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install pinned dependencies
+        run: |
+          pip install \
+            notebook==6.5.2 \
+            nbconvert==7.2.9 \
+            MarkupSafe==2.1.1 \
+            jinja2==3.0.3 \
+            ipykernel==6.21.2
+
+      - name: Convert ALL notebooks
+        run: |
+          find . -name "*.ipynb" -exec jupyter nbconvert {} \
+            --to markdown \
+            --execute \
+            --allow-errors \;
+
+      - name: Deploy full rebuild to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .
+          clean: true # Overwrite all files for a full rebuild

@@ -1,11 +1,13 @@
-name: jupyter-site-template-deploy
+name: Process and Deploy to gh-pages
 on:
   push:
     branches:
       - main
+    paths:
+      - "**/*.ipynb" # Only trigger on notebook changes
 
 jobs:
-  deploy-gh-pages:
+  process-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,36 +19,30 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install system dependencies
-        run: sudo apt-get install -y pandoc
-
-      - name: Install core packages (pinned versions)
+      - name: Install pinned dependencies
         run: |
           pip install --upgrade pip
-          pip install notebook==6.5.2 nbconvert==7.2.9 \MarkupSafe==2.1.1 jinja2==3.0.3 ipykernel==6.21.2 pipreqs
+          pip install notebook==6.5.2 nbconvert==7.2.9 MarkupSafe==2.1.1 jinja2==3.0.3 ipykernel==6.21.2 pipreqs
 
-      - name: Detect notebook dependencies
+      - name: Detect changed notebooks
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+        with:
+          files: "**/*.ipynb"
+
+      - name: Convert changed notebooks
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          # Convert notebooks to scripts to detect imports
-          find . -name "*.ipynb" -exec jupyter nbconvert {} --to script \;
-          # Generate requirements.txt from all scripts
-          pipreqs . --mode no-pin --force
-          # Clean up temporary scripts
-          find . -name "*.py" -not -path "./.venv/*" -delete
+          for nb in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            jupyter nbconvert "$nb" --to markdown --execute --allow-errors
+          done
 
-      - name: Install notebook dependencies
-        run: pip install -r requirements.txt
+      # No commit/push to main branch here!
 
-      - name: Convert notebooks with outputs
-        run: |
-          export PYTHONPATH="${PYTHONPATH}:${PWD}"
-          find . -name "*.ipynb" -exec jupyter nbconvert {} \
-            --to markdown \
-            --execute \
-            --allow-errors \
-            --TemplateExporter.exclude_input_prompt=True \;
-
-      - uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy to gh-pages
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: .
+          clean: false

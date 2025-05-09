@@ -38,10 +38,9 @@ The workflows are located in the `.github/workflows` folder. Follow these steps 
 - **Purpose**: Automates tasks such as testing, linting, and deployment for the project.
 - **Setup**:
 
-  1. Ensure the repository has a `.github/workflows/jupyter-site-template-deploy.yml` file.
-  2. Modify the `python-version` or other configurations in the workflow file to match your project requirements.
-  3. Configure environment variables in the repository settings (if required, e.g., API keys, deployment URLs).
-  4. Push changes to trigger the workflow:
+  1. Ensure the repository has a `.github/workflows/jupyter-site-template-deploy.yml` and `verify-and-redeploy.yml` files.
+  2. Modify the `python-version` or other configurations in the workflow files to match your project requirements.
+  3. Push changes to trigger the workflow:
      ```bash
         git add .
         git commit -m "Set up main workflow"
