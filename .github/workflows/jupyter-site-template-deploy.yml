@@ -4,7 +4,8 @@ on:
     branches:
       - main
     paths:
-      - "**/*.ipynb" # Only trigger on notebook changes
+      - "**/*.ipynb"
+      - "**/*.md" # Also trigger on markdown file changes
 
 jobs:
   process-and-deploy:
@@ -19,44 +20,54 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install pinned dependencies
+      - name: Install pipreqs and core notebook tools
         run: |
           pip install --upgrade pip
           pip install notebook==6.5.2 nbconvert==7.2.9 MarkupSafe==2.1.1 jinja2==3.0.3 ipykernel==6.21.2 pipreqs
 
-      - name: Detect changed notebooks
+      - name: Detect changed files
         id: changed-files
         uses: tj-actions/changed-files@v42
         with:
-          files: "**/*.ipynb"
+          files: |
+            **/*.ipynb
+            **/*.md
+
+      - name: Create temp directory for file processing
+        run: mkdir -p temp_processing
 
       - name: Convert changed notebooks to scripts
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          for nb in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            jupyter nbconvert "$nb" --to script --output "${nb%.ipynb}.py"
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ "$file" == *.ipynb ]]; then
+              jupyter nbconvert "$file" --to script --output "temp_processing/${file%.ipynb}.py"
+            fi
           done
 
       - name: Generate requirements.txt for changed files
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          pipreqs . --force
+          pipreqs temp_processing --force
+          if [ -f temp_processing/requirements.txt ]; then
+            mv temp_processing/requirements.txt ./
+          fi
 
       - name: Install notebook dependencies
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
 
-      - name: Clean up temporary scripts
+      - name: Process changed notebooks and markdown
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          find . -name "*.py" -not -path "./.venv/*" -delete
-
-      - name: Convert changed notebooks to markdown
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: |
-          for nb in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            jupyter nbconvert "$nb" --to markdown --execute --allow-errors
+          # Process changed notebooks
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ "$file" == *.ipynb ]]; then
+              jupyter nbconvert "$file" --to markdown --execute --allow-errors
+            fi
           done
 
       - name: Deploy to gh-pages
@@ -66,3 +77,11 @@ jobs:
           branch: gh-pages
           folder: .
           clean: false
+
+      - name: Cleanup temporary files
+        if: always()
+        run: |
+          # Clean up all temporary files and directories
+          rm -rf temp_processing
+          find . -name "*.py" -not -path "./.venv/*" -not -path "./.*" -delete
+          rm -f requirements.txt || true

@@ -24,21 +24,25 @@ jobs:
           pip install --upgrade pip
           pip install pipreqs notebook==6.5.2 nbconvert==7.2.9 MarkupSafe==2.1.1 jinja2==3.0.3 ipykernel==6.21.2
 
-      - name: Convert all notebooks to scripts
+      - name: Create temp directory for processing
+        run: mkdir -p temp_processing
+
+      - name: Convert notebooks to scripts for dependency detection
         run: |
-          find . -name "*.ipynb" -exec jupyter nbconvert {} --to script \;
+          find . -name "*.ipynb" -exec jupyter nbconvert {} --to script --output-dir temp_processing \;
 
       - name: Generate requirements.txt for all notebooks
         run: |
-          pipreqs . --force
+          pipreqs temp_processing --force
+          if [ -f temp_processing/requirements.txt ]; then
+            mv temp_processing/requirements.txt ./
+          else
+            touch requirements.txt
+          fi
 
       - name: Install all notebook dependencies
         run: |
           pip install -r requirements.txt
-
-      - name: Clean up temporary scripts
-        run: |
-          find . -name "*.py" -not -path "./.venv/*" -delete
 
       - name: Convert ALL notebooks to markdown
         run: |
@@ -52,4 +56,12 @@ jobs:
         with:
           branch: gh-pages
           folder: .
-          clean: true
+          clean: true # Overwrite all files for a full rebuild
+
+      - name: Cleanup temporary files
+        if: always()
+        run: |
+          # Clean up all temporary files and directories
+          rm -rf temp_processing
+          find . -name "*.py" -not -path "./.venv/*" -not -path "./.*" -delete
+          rm -f requirements.txt || true
